@@ -1,0 +1,37 @@
+# CATEGORY
+type Category {
+  _id: ID
+  name: String!
+  parent: ID
+}
+
+input CategoryInput {
+  name: String!
+  parent: ID
+}
+
+# PRODUCT
+type Product {
+  _id: ID
+  name: String!
+}
+
+input ProductInput {
+  name: String!
+}
+
+# QUERY
+type Query {
+  getCategoryById(id: ID!): Category
+  getCategories(limit: Int!, page: Int = 0): [Category]
+
+  getProductById(id: ID!): Product
+  getProducts(limit: Int!, page: Int = 0): [Product]
+}
+
+# MUTATION
+type Mutation {
+  addCategory(category: CategoryInput): Category
+
+  addProduct(product: ProductInput): Product
+}
