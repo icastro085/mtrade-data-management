@@ -34,4 +34,5 @@ type Mutation {
   addCategory(category: CategoryInput): Category
 
   addProduct(product: ProductInput): Product
+  updateProduct(id: ID!, product: ProductInput): Product
 }

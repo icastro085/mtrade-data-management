@@ -3,7 +3,7 @@ const path = require('path');
 const { buildSchema } = require('graphql');
 
 const loadSchema = () => (fs.readFileSync(
-  path.join(__dirname, '/schemas/schema.graphql'),
+  path.join(__dirname, 'schemas/schema.graphql'),
   'utf-8'
 ));
 
