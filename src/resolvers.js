@@ -40,6 +40,7 @@ const resolvers = {
 
   Category: {
     parent: async ({ parent: id }) => getCategoryById({ id }),
+    children: async ({ _id: parent }) => getCategories({ parent }),
   },
 
   Product: {

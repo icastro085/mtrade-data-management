@@ -4,12 +4,16 @@ const Category = require('../models/Category');
 const mapParent = ({ id } = {}) => id;
 
 const mapFilters = (filters = {}) => {
-  const { name } = filters;
+  const { name, parent } = filters;
 
   const filtersMapped = {};
 
   if (name) {
     filtersMapped.name = new RegExp(name, 'g');
+  }
+
+  if (parent) {
+    filtersMapped.parent = parent;
   }
 
   return filtersMapped;
