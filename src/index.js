@@ -10,11 +10,13 @@ const initialize = async () => {
     await mongoose.connect('mongodb://mongo:27017/mtrade', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
     });
 
     log('mongo contected');
 
     const app = express();
+
     app.use('/data-resource', dataResource);
     app.listen(4000, () => console.log('Now browse to localhost:4000/graphql'));
   } catch (e) {

@@ -4,6 +4,7 @@ const {
   addCategory,
   updateCategory,
   getCategoriesInList,
+  deleteCategory,
 } = require('./services/category');
 
 const {
@@ -11,6 +12,7 @@ const {
   getProducts,
   addProduct,
   updateProduct,
+  deleteProduct,
 } = require('./services/product');
 
 const resolvers = {
@@ -20,15 +22,16 @@ const resolvers = {
 
     getProductById: (_, params) => getProductById(params),
     getProducts: (_, params) => getProducts(params),
-    
   },
 
   Mutation: {
     addCategory: (_, params) => addCategory(params),
     updateCategory: (_, params) => updateCategory(params),
+    deleteCategory: (_, params) => deleteCategory(params),
 
     addProduct: (_, params) => addProduct(params),
     updateProduct: (_, params) => updateProduct(params),
+    deleteProduct: (_, params) => deleteProduct(params),
   },
 
   Product: {

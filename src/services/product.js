@@ -13,20 +13,24 @@ const getProducts = async ({ limit, page }) => (
 );
 
 // Mutation
-const addProduct = async ({ product: data }) => {
-  data.categories = mapCategories(data.categories);
+const addProduct = async ({ product }) => {
+  product.categories = mapCategories(product.categories);
   return  Product.create(data);
 };
 
-const updateProduct = async ({ id, product: data }) => {
-  data.categories = mapCategories(data.categories);
-  await Product.updateOne({ _id: id }, data);
-  return getProductById({ id });
+const updateProduct = async ({ id, product }) => {
+  product.categories = mapCategories(product.categories);
+  return Product.findByIdAndUpdate(id, product, { new: true });
 };
+
+const deleteProduct = async ({ id }) => (
+  await Product.deleteOne({ _id: id })
+);
 
 module.exports = {
   getProductById,
   getProducts,
   addProduct,
   updateProduct,
+  deleteProduct,
 };

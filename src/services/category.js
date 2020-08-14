@@ -12,12 +12,15 @@ const getCategoriesInList = async ({ categories = []}) => (
 );
 
 // Mutation
-const addCategory = async ({ category: data }) => Category.create(data);
+const addCategory = async ({ category }) => Category.create(category);
 
-const updateCategory = async ({ id, category: data }) => {
-  await Category.updateOne({ _id: id }, data);
-  return getCategoryById({ id });
-};
+const updateCategory = async ({ id, category }) => (
+  Category.findByIdAndUpdate(id, category, { new: true })
+);
+
+const deleteCategory = async ({ id }) => (
+  await Category.deleteOne({ _id: id })
+);
 
 module.exports = {
   getCategoryById,
@@ -25,4 +28,5 @@ module.exports = {
   addCategory,
   updateCategory,
   getCategoriesInList,
+  deleteCategory,
 };
