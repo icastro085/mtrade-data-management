@@ -2,13 +2,18 @@
 type Category {
   _id: ID
   name: String!
-  parent: ID
+  parent: Category
+  children: [Category!]
   products: [Product!]
 }
 
 input CategoryInput {
   name: String!
-  parent: ID
+  parent: CategoryParentInput
+}
+
+input CategoryParentInput {
+  id: ID!
 }
 
 input ProductCategoriesInput {

@@ -38,6 +38,10 @@ const resolvers = {
     deleteProduct: (_, params) => deleteProduct(params),
   },
 
+  Category: {
+    parent: async ({ parent: id }) => getCategoryById({ id }),
+  },
+
   Product: {
     categories: async ({ categories }) => getCategoriesInList({ categories }),
   },

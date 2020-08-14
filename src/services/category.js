@@ -1,6 +1,7 @@
 const Category = require('../models/Category');
 
 // Helpers
+const mapParent = ({ id } = {}) => id;
 
 const mapFilters = (filters = {}) => {
   const { name } = filters;
@@ -25,19 +26,24 @@ const getCategoriesTotal = async (filters = {}) => (
   Category.find(mapFilters(filters)).countDocuments()
 );
 
-const getCategoriesInList = async ({ categories = []}) => (
-  Category.find({ _id: { $in: categories }})
-);
-
 // Mutation
-const addCategory = async ({ category }) => Category.create(category);
+const addCategory = async ({ category }) => {
+  category.parent = mapParent(category.parent);
+  return Category.create(category);
+};
 
-const updateCategory = async ({ id, category }) => (
-  Category.findByIdAndUpdate(id, category, { new: true })
-);
+const updateCategory = async ({ id, category }) => {
+  category.parent = mapParent(category.parent);
+  return Category.findByIdAndUpdate(id, category, { new: true });
+};
 
 const deleteCategory = async ({ id }) => (
-  await Category.deleteOne({ _id: id })
+  Category.deleteOne({ _id: id })
+);
+
+// Product.categories
+const getCategoriesInList = async ({ categories = []}) => (
+  Category.find({ _id: { $in: categories }})
 );
 
 module.exports = {
