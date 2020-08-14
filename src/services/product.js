@@ -38,7 +38,7 @@ const getProductsTotal = async (filters = {}) => (
 // Mutation
 const addProduct = async ({ product }) => {
   product.categories = mapCategories(product.categories);
-  return  Product.create(data);
+  return  Product.create(product);
 };
 
 const updateProduct = async ({ id, product }) => {
