@@ -5,11 +5,34 @@ const mapCategories = (categories = []) => (
   categories.map(({ id }) => id)
 );
 
+const mapFilters = (filters = {}) => {
+  const {
+    name,
+    description,
+  } = filters;
+
+  const filtersMapped = {};
+
+  if (name) {
+    filtersMapped.name = new RegExp(name, 'g');
+  }
+
+  if (description) {
+    filtersMapped.description = new RegExp(description, 'g');
+  }
+
+  return filtersMapped;
+};
+
 // Query
 const getProductById = async ({ id }) => Product.findById(id);
 
-const getProducts = async ({ limit, page }) => (
-  Product.find().limit(limit).skip(limit * page)
+const getProducts = async ({ limit, page, ...filters }) => (
+  Product.find(mapFilters(filters)).limit(limit).skip(limit * page)
+);
+
+const getProductsTotal = async (filters = {}) => (
+  Product.find(mapFilters(filters)).countDocuments()
 );
 
 // Mutation
@@ -30,6 +53,7 @@ const deleteProduct = async ({ id }) => (
 module.exports = {
   getProductById,
   getProducts,
+  getProductsTotal,
   addProduct,
   updateProduct,
   deleteProduct,

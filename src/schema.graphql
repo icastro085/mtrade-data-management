@@ -19,12 +19,42 @@ input ProductCategoriesInput {
 type Product {
   _id: ID
   name: String!
+  description: String
+  price: Float
+  priceOld: Float
   categories: [Category!]
+  info: [ProductInfo!]
+  images: [ProductImage!]
+}
+
+type ProductInfo {
+  label: String!
+  value: String!
+}
+
+type ProductImage {
+  name: String
+  source: String
 }
 
 input ProductInput {
   name: String!
+  description: String
+  price: Float
+  priceOld: Float
   categories: [ProductCategoriesInput!]
+  info: [ProductInfoInput!]
+  images: [ProductImageInput!]
+}
+
+input ProductInfoInput {
+  label: String!
+  value: String!
+}
+
+input ProductImageInput {
+  name: String
+  source: String
 }
 
 type DeleteResult {
@@ -35,10 +65,20 @@ type DeleteResult {
 # QUERY
 type Query {
   getCategoryById(id: ID!): Category
-  getCategories(limit: Int!, page: Int = 0): [Category]
+  getCategories(name: String, limit: Int!, page: Int = 0): [Category]
+  getCategoriesTotal(name: String): Int!
 
   getProductById(id: ID!): Product
-  getProducts(limit: Int!, page: Int = 0): [Product]
+  getProducts(
+    name: String,
+    description: String,
+    limit: Int!,
+    page: Int = 0
+  ): [Product]
+  getProductsTotal(
+    name: String,
+    description: String
+  ): Int!
 }
 
 # MUTATION

@@ -1,10 +1,28 @@
 const Category = require('../models/Category');
 
+// Helpers
+
+const mapFilters = (filters = {}) => {
+  const { name } = filters;
+
+  const filtersMapped = {};
+
+  if (name) {
+    filtersMapped.name = new RegExp(name, 'g');
+  }
+
+  return filtersMapped;
+};
+
 // Query
 const getCategoryById = async ({ id }) => Category.findById(id);
 
-const getCategories = async ({ limit, page }) => (
-  Category.find().limit(limit).skip(limit * page)
+const getCategories = async ({ limit, page, ...filters }) => (
+  Category.find(mapFilters(filters)).limit(limit).skip(limit * page)
+);
+
+const getCategoriesTotal = async (filters = {}) => (
+  Category.find(mapFilters(filters)).countDocuments()
 );
 
 const getCategoriesInList = async ({ categories = []}) => (
@@ -25,6 +43,7 @@ const deleteCategory = async ({ id }) => (
 module.exports = {
   getCategoryById,
   getCategories,
+  getCategoriesTotal,
   addCategory,
   updateCategory,
   getCategoriesInList,
