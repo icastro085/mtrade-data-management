@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const dataResource = require('./routers/data-resource');
 
@@ -16,6 +18,10 @@ const initialize = async () => {
     log('mongo contected');
 
     const app = express();
+
+    app.use(cors());
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
 
     app.use('/data-resource', dataResource);
     app.listen(4000, () => console.log('Now browse to localhost:4000/graphql'));
