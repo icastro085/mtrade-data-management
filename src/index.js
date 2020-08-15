@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const cors = require('cors');
 
 const dataResource = require('./routers/data-resource');
@@ -20,11 +21,12 @@ const initialize = async () => {
     const app = express();
 
     app.use(cors());
+    app.use(morgan('combined'))
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
 
     app.use('/data-resource', dataResource);
-    app.listen(4000, () => console.log('Now browse to localhost:4000/graphql'));
+    app.listen(4000, () => console.log('Now browse to localhost:4000/data-resource'));
   } catch (e) {
     error('Error:', e.message);
   }
