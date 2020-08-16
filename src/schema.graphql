@@ -13,11 +13,11 @@ input CategoryInput {
 }
 
 input CategoryParentInput {
-  id: ID!
+  _id: ID!
 }
 
 input ProductCategoriesInput {
-  id: ID!
+  _id: ID!
 }
 
 # PRODUCT
