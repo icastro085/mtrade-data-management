@@ -4,7 +4,10 @@ const { ObjectId } = Schema;
  
 const Category = new Schema({
   id: ObjectId,
-  name: String,
+  name: {
+    type: String,
+    required: true,
+  },
   parent: ObjectId,
 });
 
