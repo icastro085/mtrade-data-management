@@ -8,7 +8,7 @@ const Category = new Schema({
     type: String,
     required: true,
   },
-  parent: ObjectId,
+  parentId: ObjectId,
 });
 
 module.exports = mongoose.model('Category', Category);

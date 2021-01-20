@@ -1,10 +1,8 @@
 const Category = require('../models/Category');
 
 // Helpers
-const mapParent = ({ _id }) => _id;
-
 const mapFilters = (filters = {}) => {
-  const { name, parent } = filters;
+  const { name, parentId } = filters;
 
   const filtersMapped = {};
 
@@ -12,8 +10,8 @@ const mapFilters = (filters = {}) => {
     filtersMapped.name = new RegExp(name, 'gi');
   }
 
-  if (parent) {
-    filtersMapped.parent = parent;
+  if (parentId) {
+    filtersMapped.parentId = parentId;
   }
 
   return filtersMapped;
@@ -31,11 +29,9 @@ const getCategoriesTotal = async (filters = {}) => (
 );
 
 // Mutation
-const saveCategory = async ({ id: _id, category }) => {
-  category.parent = mapParent(category?.parent);
-
-  return _id
-    ? Category.findByIdAndUpdate(_id, category, { new: true, setDefaultsOnInsert: true })
+const saveCategory = async ({ id, category }) => {
+  return id
+    ? Category.findByIdAndUpdate(id, category, { new: true, setDefaultsOnInsert: true })
     : Category.create(category);
 };
 

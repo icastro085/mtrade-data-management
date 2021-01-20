@@ -37,8 +37,8 @@ const resolvers = {
   },
 
   Category: {
-    parent: async ({ parent: id }) => getCategoryById({ id }),
-    children: async ({ _id: parent }) => getCategories({ parent }),
+    parent: async ({ parentId: id }) => getCategoryById({ id }),
+    children: async ({ _id: parentId }) => getCategories({ parentId }),
   },
 
   Product: {

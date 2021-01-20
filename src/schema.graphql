@@ -2,6 +2,7 @@
 type Category {
   _id: ID
   name: String!
+  parentId: ID
   parent: Category
   children: [Category!]
   products: [Product!]
@@ -9,12 +10,7 @@ type Category {
 
 input CategoryInput {
   name: String!
-  parent: CategoryParentInput
-}
-
-input CategoryParentInput {
-  _id: ID
-  name: String
+  parentId: String
 }
 
 input ProductCategoriesInput {
