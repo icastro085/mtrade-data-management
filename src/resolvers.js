@@ -2,8 +2,7 @@ const {
   getCategoryById,
   getCategories,
   getCategoriesTotal,
-  addCategory,
-  updateCategory,
+  saveCategory,
   getCategoriesInList,
   deleteCategory,
 } = require('./services/category');
@@ -29,8 +28,7 @@ const resolvers = {
   },
 
   Mutation: {
-    addCategory: (_, params) => addCategory(params),
-    updateCategory: (_, params) => updateCategory(params),
+    saveCategory: (_, params) => saveCategory(params),
     deleteCategory: (_, params) => deleteCategory(params),
 
     addProduct: (_, params) => addProduct(params),

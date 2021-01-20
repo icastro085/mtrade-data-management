@@ -31,14 +31,12 @@ const getCategoriesTotal = async (filters = {}) => (
 );
 
 // Mutation
-const addCategory = async ({ category }) => {
-  category.parent = mapParent(category.parent || {});
-  return Category.create(category);
-};
+const saveCategory = async ({ id: _id, category }) => {
+  category.parent = mapParent(category?.parent);
 
-const updateCategory = async ({ id, category }) => {
-  category.parent = mapParent(category.parent || {});
-  return Category.findByIdAndUpdate(id, category, { new: true });
+  return _id
+    ? Category.findByIdAndUpdate(_id, category, { new: true, setDefaultsOnInsert: true })
+    : Category.create(category);
 };
 
 const deleteCategory = async ({ id }) => (
@@ -54,8 +52,7 @@ module.exports = {
   getCategoryById,
   getCategories,
   getCategoriesTotal,
-  addCategory,
-  updateCategory,
+  saveCategory,
   getCategoriesInList,
   deleteCategory,
 };
